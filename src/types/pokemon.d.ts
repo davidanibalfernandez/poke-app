@@ -948,7 +948,7 @@ declare module 'pokedex-promise-v2' {
       /** A list of moves along with learn methods and level details pertaining to specific version groups. */
       moves: PokemonMove[];
       /** A set of sprites used to depict this Pokémon in the game. A visual representation of the various sprites can be found at <a href='https://github.com/PokeAPI/sprites#sprites'>PokeAPI/sprites</a> */
-      sprites: PokemonSprites;
+      sprites: Array<{sprites: string}>;
       /** The species this Pokémon belongs to. */
       species: NamedAPIResource<PokemonSpecies>;
       /** A list of base stat values for this Pokémon. */
@@ -970,7 +970,7 @@ declare module 'pokedex-promise-v2' {
       /** The order the Pokémon's types are listed in. */
       slot: number;
       /** The type the referenced Pokémon has. */
-      type: NamedAPIResource<Type>;
+      type: Type;
     }
 
     interface PokemonHeldItem {
@@ -1004,6 +1004,7 @@ declare module 'pokedex-promise-v2' {
     }
 
     interface PokemonStat {
+      id: number;
       /** The stat the Pokémon has. */
       stat: NamedAPIResource<Stat>;
       /** The effort points (EV) the Pokémon has in the stat. */
@@ -1263,7 +1264,7 @@ declare module 'pokedex-promise-v2' {
       /** The name for this resource. */
       name: string;
       /** A detail of how effective this type is toward others and vice versa. */
-      damage_relations: TypeRelations;
+      damage_relations: TypeRelations[];
       /** A list of game indices relevent to this item by generation. */
       game_indices: GenerationGameIndex[];
       /** The generation this type was introduced in. */
@@ -1287,17 +1288,8 @@ declare module 'pokedex-promise-v2' {
 
     interface TypeRelations {
       /** A list of types this type has no effect on. */
-      no_damage_to: NamedAPIResource<Type>[];
-      /** A list of types this type is not very effect against. */
-      half_damage_to: NamedAPIResource<Type>[];
-      /** A list of types this type is very effect against. */
-      double_damage_to: NamedAPIResource<Type>[];
-      /** A list of types that have no effect on this type. */
-      no_damage_from: NamedAPIResource<Type>[];
-      /** A list of types that are not very effective against this type. */
-      half_damage_from: NamedAPIResource<Type>[];
-      /** A list of types that are very effective against this type. */
-      double_damage_from: NamedAPIResource<Type>[];
+      type: NamedAPIResource<Type>;
+      damage_factor: number;
     }
 
     /** Languages for translations of API resource information. */

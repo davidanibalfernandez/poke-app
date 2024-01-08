@@ -1,10 +1,15 @@
-const baseUrl = 'https://pokeapi.co/api/v2/';
+const baseUrl = 'https://beta.pokeapi.co/graphql/v1beta';
 
-export function get<T>(
-  url: string,
-  options: RequestInit | undefined,
-): Promise<T> {
-  return fetch(baseUrl + url, options).then(response => {
+export function get<T>(options: RequestInit | undefined): Promise<T> {
+  const request = new Request(baseUrl, {
+    ...options,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return fetch(request).then(response => {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
