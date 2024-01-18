@@ -948,7 +948,7 @@ declare module 'pokedex-promise-v2' {
       /** A list of moves along with learn methods and level details pertaining to specific version groups. */
       moves: PokemonMove[];
       /** A set of sprites used to depict this Pokémon in the game. A visual representation of the various sprites can be found at <a href='https://github.com/PokeAPI/sprites#sprites'>PokeAPI/sprites</a> */
-      sprites: Array<{sprites: string}>;
+      sprites: Array<{sprites: PokemonSprites}>;
       /** The species this Pokémon belongs to. */
       species: NamedAPIResource<PokemonSpecies>;
       /** A list of base stat values for this Pokémon. */

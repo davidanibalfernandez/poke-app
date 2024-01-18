@@ -4,21 +4,22 @@ import {get} from './api';
 export const getPokemonList = async (
   offset: number,
   inputFilter?: string,
-  generation?: string,
+  filters?: string[],
   sortFilter?: string,
 ) => {
   const limit: number = 20;
 
+  // filter by id less than equal to 1025 will remove the pokemon that are not valid in the pokedex
   const filter =
     inputFilter !== undefined && inputFilter.length > 0
-      ? `,where: {name: {_iregex: "${inputFilter}"}}`
-      : '';
+      ? `,where: {id: {_lte: 1025}, name: {_iregex: "${inputFilter}"}}`
+      : ',where: {id: {_lte: 1025}}';
 
   const sort =
     sortFilter !== undefined && sortFilter.length > 0
       ? getSortType(sortFilter)
       : '';
-
+      
   const query = `query samplePokeAPIquery {
     pokemon_v2_pokemon(limit: ${limit}, offset: ${offset}${sort}${filter}) {
       id
@@ -35,7 +36,7 @@ export const getPokemonList = async (
       }
     }
   }`;
-  
+
   const options = {
     body: JSON.stringify({query}),
   };
@@ -135,17 +136,9 @@ const getSortType = (type: string): string => {
     case 'height-desc':
       value = ', order_by: {height: desc}';
       break;
-    case 'type-asc':
-      value =
-        ', order_by: {pokemon_v2_pokemontypes_aggregate: {avg: {type_id: asc}}}';
-      break;
-    case 'type-desc':
-      value =
-        ', order_by: {pokemon_v2_pokemontypes_aggregate: {avg: {type_id: desc}}}';
-      break;
 
     default:
-      value = ', order_by: {name: asc}';
+      value = ', order_by: {id: asc}';
       break;
   }
 
@@ -162,3 +155,37 @@ query samplePokeAPIquery {
   }
 }
 */
+
+// # query samplePokeAPIquery2 {
+// #   pokemon_v2_pokemon(where: {name: {_eq: "eevee"}}) {
+// #     id
+// #     name
+// #     species: pokemon_v2_pokemonspecy {
+// #       gender_rate
+// #       has_gender_differences
+// #       pokemon_v2_evolutionchain {
+// #         pokemon_v2_pokemonspecies {
+// #           name
+// #           pokemon_v2_pokemonevolutions {
+// #             min_level
+// #             needs_overworld_rain
+// #             min_beauty
+// #             min_affection
+// #             min_happiness
+// #             gender_id
+// #             trade_species_id
+// #             time_of_day
+// #             relative_physical_stats
+// #             pokemon_v2_item {
+// #               name
+// #             }
+// #             location_id
+// #             known_move_id
+// #             held_item_id
+// #             known_move_type_id
+// #           }
+// #         }
+// #       }
+// #     }
+// #   }
+// # }

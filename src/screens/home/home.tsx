@@ -1,28 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  FlatList,
-  ActivityIndicator,
-  TextInput,
-  View,
-  Pressable,
-} from 'react-native';
+import {SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
 import {getPokemonList} from '../../sdk/pokemon';
 import PokeAPI from 'pokedex-promise-v2';
 import {Card} from '../../components/home/card';
 import {styles} from './home.styles';
-import {SvgXml} from 'react-native-svg';
-import {FilterIcon} from '../../assets';
+import {Header} from '../../components/home/header';
 
 export default function HomeScreen() {
   const [pokemons, setPokemons] = useState<PokeAPI.Pokemon[]>([]);
   const [currentLimit, setCurrentLimit] = useState<number>(0);
   const [searchInput, setSearchInput] = useState<string>('');
+  const [sortPokemon, setSortPokemon] = useState<string>('number-asc');
+  const [filters, setFilters] = useState<string[]>([]);
   const [firstLoad, setFirstLoad] = useState<boolean>(true); // this state is used to remove a double fetch from the function run in the first run useEffect
 
-  const run = async () => {
-    await getPokemonList(currentLimit, searchInput)
+  const run = async (limit: number) => {
+    await getPokemonList(limit, searchInput, filters, sortPokemon)
       .then(data => {
         setFirstLoad(false); // change the state to false when the first data come from the API
         return data.data.pokemon_v2_pokemon;
@@ -35,34 +29,35 @@ export default function HomeScreen() {
 
   // first run of the list
   useEffect(() => {
-    run();
+    run(currentLimit);
   }, []);
 
   // run every time the limit of pagination change
   useEffect(() => {
     if (currentLimit > 0) {
-      run();
+      run(currentLimit);
     }
   }, [currentLimit]);
 
+  // run every time when the sort or any filter change
+  useEffect(() => {    
+    if (!firstLoad) {
+      setCurrentLimit(0);
+      setPokemons([]);
+      run(0);
+    }
+  }, [searchInput, sortPokemon, filters]);
+
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.inputGroupContainer}>
-        <View style={styles.inputFilterContainer}>
-          <TextInput
-            style={styles.input}
-            onChangeText={setSearchInput}
-            value={searchInput}
-            placeholder="Search by Name"
-            autoCapitalize={'none'}
-          />
-        </View>
-        <Pressable onPress={() => console.log('qwe')}>
-          <View style={styles.filterInputButtonContainer}>
-            <SvgXml xml={FilterIcon()} width={16} height={16} />
-          </View>
-        </Pressable>
-      </View>
+      <Header
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        setFilters={setFilters}
+        setSortPokemon={setSortPokemon}
+        sortPokemon={sortPokemon}
+        filters={filters}
+      />
       <FlatList
         numColumns={2}
         showsVerticalScrollIndicator={false}

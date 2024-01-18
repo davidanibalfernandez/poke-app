@@ -3,7 +3,7 @@ import {SafeAreaView, Text, Pressable, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SvgXml} from 'react-native-svg';
-import PokeBallLogo from '../assets/pokeBallLogo.tsx';
+import PokeBallLogo from '../assets/images/pokeBallLogo.tsx';
 import {RootStackParamList} from '../utils/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;

@@ -7,7 +7,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../utils/types';
 import {Stats} from '../components/details/stats';
 import {SvgXml} from 'react-native-svg';
-import ArrowBackButton from '../assets/arrowBackButton';
+import ArrowBackButton from '../assets/icons/arrowBackButton';
 import {StrengthsAndWeaknesses} from '../components/details/weaknesses';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Details'>;
