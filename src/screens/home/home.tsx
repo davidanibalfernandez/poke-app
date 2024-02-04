@@ -12,7 +12,7 @@ export default function HomeScreen() {
   const [currentLimit, setCurrentLimit] = useState<number>(0);
   const [searchInput, setSearchInput] = useState<string>('');
   const [sortPokemon, setSortPokemon] = useState<string>('number-asc');
-  const [filters, setFilters] = useState<string[]>([]);
+  const [filters, setFilters] = useState<string>();
   const [firstLoad, setFirstLoad] = useState<boolean>(true); // this state is used to remove a double fetch from the function run in the first run useEffect
 
   const run = async (limit: number) => {
@@ -51,12 +51,9 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.screen}>
       <Header
-        searchInput={searchInput}
         setSearchInput={setSearchInput}
         setFilters={setFilters}
         setSortPokemon={setSortPokemon}
-        sortPokemon={sortPokemon}
-        filters={filters}
       />
       <FlatList
         numColumns={2}

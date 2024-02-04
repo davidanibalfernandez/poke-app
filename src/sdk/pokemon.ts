@@ -1,27 +1,48 @@
 import PokeAPI from 'pokedex-promise-v2';
 import {get} from './api';
+import {pokemonIdToRemoveFromPokedex} from '../utils/constants';
 
 export const getPokemonList = async (
   offset: number,
-  inputFilter?: string,
-  filters?: string[],
-  sortFilter?: string,
+  rawInputFilter?: string,
+  rawGenFilter?: string,
+  rawSortFilter?: string,
 ) => {
   const limit: number = 20;
 
-  // filter by id less than equal to 1025 will remove the pokemon that are not valid in the pokedex
-  const filter =
-    inputFilter !== undefined && inputFilter.length > 0
-      ? `,where: {id: {_lte: 1025}, name: {_iregex: "${inputFilter}"}}`
-      : ',where: {id: {_lte: 1025}}';
-
-  const sort =
-    sortFilter !== undefined && sortFilter.length > 0
-      ? getSortType(sortFilter)
+  const sortFilter =
+    rawSortFilter !== undefined && rawSortFilter.length > 0
+      ? getSortType(rawSortFilter)
       : '';
-      
+
+      // get the input filter field in the list
+  const inputFilter =
+      rawInputFilter !== undefined && rawInputFilter.length > 0
+        ? `name: {_iregex: "${rawInputFilter}"}`
+        : '';
+  
+        // get the generation field in the modal
+  const genFilter =
+    rawGenFilter !== undefined && rawGenFilter.length > 0
+      ? `pokemon_v2_pokemonforms: {_and: {pokemon_v2_pokemonformgenerations: {pokemon_v2_generation: {name: {_iregex: "${rawGenFilter}"}}}}}`
+      : '';
+
+  // filter by id less than equal to 1025 will remove the pokemon that are not valid in the pokedex
+  // check the possibles added filter in the query. if the input filter and the generation filter both are used
+  // will add a coma and at the start a open bracket and at finish the close bracket
+  const filter =
+    inputFilter.length > 0 || genFilter.length > 0
+      ? `, where: {id: {_lte: ${pokemonIdToRemoveFromPokedex}}, _and: ${
+          inputFilter.length > 0 || genFilter.length > 0 ? '{' : ''
+        }${inputFilter}${
+          inputFilter.length > 0 && genFilter.length > 0 ? ', ' : ''
+        }${genFilter}${
+          inputFilter.length > 0 || genFilter.length > 0 ? '}' : ''
+        }}`
+      : `, where: {id: {_lte: ${pokemonIdToRemoveFromPokedex}}}`;
+
   const query = `query samplePokeAPIquery {
-    pokemon_v2_pokemon(limit: ${limit}, offset: ${offset}${sort}${filter}) {
+    pokemon_v2_pokemon(limit: ${limit}, offset: ${offset}${sortFilter}${filter}) {
       id
       name
       types: pokemon_v2_pokemontypes {
@@ -29,7 +50,6 @@ export const getPokemonList = async (
           name
           id
         }
-        slot
       }
       sprites: pokemon_v2_pokemonsprites {
         sprites
@@ -63,7 +83,6 @@ export const getPokemonByNumber = async (number: number) => {
             }
           }
         }
-        slot
       }
       species: pokemon_v2_pokemonspecy {
         gender_rate
@@ -144,17 +163,6 @@ const getSortType = (type: string): string => {
 
   return value;
 };
-
-/*
-query samplePokeAPIquery {
-  gen1_species: pokemon_v2_pokemonspecies(
-    where: { pokemon_v2_generation: { name: { _eq: "generation-i" } } }
-  ) {
-    name
-    id
-  }
-}
-*/
 
 // # query samplePokeAPIquery2 {
 // #   pokemon_v2_pokemon(where: {name: {_eq: "eevee"}}) {

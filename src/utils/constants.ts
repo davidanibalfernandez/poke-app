@@ -90,3 +90,16 @@ export const sorts = [
   {value: 'height-asc', label: 'Shortest - Tallest'},
   {value: 'height-desc', label: 'Tallest - Shortest'},
 ];
+
+export const generations = [
+  {value: 'generation-i', label: 'Generación 1'},
+  {value: 'generation-ii', label: 'Generación 2'},
+  {value: 'generation-iii', label: 'Generación 3'},
+  {value: 'generation-iv', label: 'Generación 4'},
+  {value: 'generation-v', label: 'Generación 5'},
+  {value: 'generation-vi', label: 'Generación 6'},
+  {value: 'generation-vii', label: 'Generación 7'},
+  {value: 'generation-viii', label: 'Generación 8'},
+];
+
+export const pokemonIdToRemoveFromPokedex = 1025;

@@ -66,6 +66,7 @@ export const styles = StyleSheet.create({
   },
   modalFooter: {
     padding: 20,
+    gap: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -78,13 +79,22 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  checkBoxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 8,
+    paddingHorizontal: 24,
+    borderRadius: 4,
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#E3350D',
+  },
+  buttonResetFilter: {
+    backgroundColor: '#FF9999',
   },
   textStyle: {
     color: 'white',

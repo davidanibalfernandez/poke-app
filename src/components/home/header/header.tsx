@@ -4,27 +4,30 @@ import {styles} from './header.styles';
 import {SvgXml} from 'react-native-svg';
 import {FilterIcon} from '../../../assets';
 import {Checkbox, RadioButton} from 'react-native-paper';
-import {sorts} from '../../../utils/constants';
+import {sorts, generations} from '../../../utils/constants';
 
 interface Props {
-  searchInput: string;
-  sortPokemon: string;
   setSearchInput: React.Dispatch<React.SetStateAction<string>>;
   setSortPokemon: React.Dispatch<React.SetStateAction<string>>;
-  setFilters: React.Dispatch<React.SetStateAction<string[]>>;
-  filters: string[];
+  setFilters: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export default function Header({
-  searchInput,
-  sortPokemon,
   setSearchInput,
   setSortPokemon,
   setFilters,
-  filters,
 }: Props): React.JSX.Element {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [checkboxState, setCheckboxState] = useState<boolean>(false);
+  const [checkboxState, setCheckboxState] = useState<string>('');
+  const [sortState, setSortState] = useState<string>('');
+
+  /**
+   * get the states used to select in the modal and update the states for change the query to fetch the pokemons
+   */
+  const submit = () => {
+    setFilters(checkboxState);
+    setSortPokemon(sortState);
+  };
 
   return (
     <View style={styles.inputGroupContainer}>
@@ -51,23 +54,29 @@ export default function Header({
         <View style={styles.modalContainer}>
           <View style={styles.modalBody}>
             <View style={styles.modalColumns}>
-              <Checkbox
-                status={checkboxState ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  setCheckboxState(!checkboxState);
-                }}
-              />
+              <Text>Filtros</Text>
+              {generations.map((g, i) => (
+                <View key={i} style={styles.checkBoxContainer}>
+                  <RadioButton
+                    value={g.value}
+                    status={checkboxState === g.value ? 'checked' : 'unchecked'}
+                    onPress={() => setCheckboxState(g.value)}
+                  />
+                  <Text>{g.label}</Text>
+                </View>
+              ))}
             </View>
             <View style={styles.modalColumns}>
+              <Text>Orden</Text>
               {sorts.map((s, i) => {
                 return (
                   <View key={i} style={styles.radioButtonContainer}>
                     <RadioButton
                       value={s.value}
                       status={
-                        sortPokemon.includes(s.value) ? 'checked' : 'unchecked'
+                        sortState.includes(s.value) ? 'checked' : 'unchecked'
                       }
-                      onPress={() => setSortPokemon(s.value)}
+                      onPress={() => setSortState(s.value)}
                     />
                     <Text>{s.label}</Text>
                   </View>
@@ -79,9 +88,18 @@ export default function Header({
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => {
+                submit();
                 setModalVisible(!modalVisible);
               }}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Close filters</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonResetFilter]}
+              onPress={() => {
+                setCheckboxState('');
+                setSortState('');
+              }}>
+              <Text style={styles.textStyle}>Reset filters</Text>
             </Pressable>
           </View>
         </View>
