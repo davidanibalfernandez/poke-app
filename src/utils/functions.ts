@@ -1,4 +1,10 @@
-import {colorsTypes, colorsStats, iconTypes, nameStats} from './constants';
+import {
+  colorsTypes,
+  colorsStats,
+  iconTypes,
+  nameStats,
+  genderRatio,
+} from './constants';
 
 export const getColorType = (rawColor: string): string => {
   return colorsTypes.find(color => color.color === rawColor)?.value ?? '#fff';
@@ -26,3 +32,13 @@ export const randomColor = (): string => {
   }
   return '#' + result;
 };
+
+
+export const getGenderRatio = (value: number) => {
+  const gender = genderRatio.find(g => g.value === value);
+  return {
+    male: gender?.label.male,
+    female: gender?.label.female,
+    isUnknown: gender?.label.isUnknown,
+  };
+}

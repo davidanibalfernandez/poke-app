@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Text, Pressable, SafeAreaView, StyleSheet} from 'react-native';
-import {getPokemonByNumber} from '../sdk/pokemon';
+import {Text, Pressable, SafeAreaView} from 'react-native';
+import {getPokemonByNumber} from '../../sdk/pokemon';
 import PokeAPI from 'pokedex-promise-v2';
-import {Abilities} from '../components/details/abilities';
+import {Abilities} from '../../components/details/abilities';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../utils/types';
-import {Stats} from '../components/details/stats';
+import {RootStackParamList} from '../../utils/types';
+import {Stats} from '../../components/details/stats';
 import {SvgXml} from 'react-native-svg';
-import ArrowBackButton from '../assets/icons/arrowBackButton';
-import {StrengthsAndWeaknesses} from '../components/details/weaknesses';
+import ArrowBackButton from '../../assets/icons/arrowBackButton';
+import {StrengthsAndWeaknesses} from '../../components/details/weaknesses';
+import {styles} from './details.styles';
+import {General} from '../../components/details/general';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Details'>;
 
@@ -36,7 +38,9 @@ export default function DetailsScreen({route, navigation}: Props) {
   if (pokemon !== undefined) {
     return (
       <SafeAreaView style={styles.screen}>
-
+        <General
+          pokemon={pokemon}
+        />
         <Abilities abilities={pokemon?.abilities} />
         <Stats stats={pokemon?.stats} />
         <StrengthsAndWeaknesses types={pokemon?.types} />
@@ -52,26 +56,3 @@ export default function DetailsScreen({route, navigation}: Props) {
     return '';
   }
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    gap: 32,
-    backgroundColor: '#fff',
-    padding: 16
-  },
-  button: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    padding: 8,
-    paddingHorizontal: 24,
-    borderRadius: 4,
-    backgroundColor: '#E3350D',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: '#fff',
-  },
-});

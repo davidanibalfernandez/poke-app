@@ -71,6 +71,8 @@ export const getPokemonByNumber = async (number: number) => {
     pokemon_v2_pokemon(where: {id: {_eq: ${number}}}) {
       id
       name
+      height
+      weight
       types: pokemon_v2_pokemontypes {
         type: pokemon_v2_type {
           name

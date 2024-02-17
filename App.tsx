@@ -6,7 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import StartScreen from './src/screens/start';
 import {HomeScreen} from './src/screens/home';
-import DetailsScreen from './src/screens/details';
+import {DetailsScreen} from './src/screens/details';
 import {RootStackParamList} from './src/utils/types';
 import {PaperProvider, DefaultTheme} from 'react-native-paper';
 

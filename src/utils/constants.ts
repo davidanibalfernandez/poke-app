@@ -103,3 +103,14 @@ export const generations = [
 ];
 
 export const pokemonIdToRemoveFromPokedex = 1025;
+
+export const genderRatio = [
+  {value: 0, label: {male: '100%', female: '0%', isUnknown: false}},
+  {value: 1, label: {male: '88.14%', female: '11.86%', isUnknown: false}},
+  {value: 2, label: {male: '75.50%', female: '24.50%', isUnknown: false}},
+  {value: 4, label: {male: '50.20%', female: '49.80%', isUnknown: false}},
+  {value: 6, label: {male: '24.90%', female: '75.10%', isUnknown: false}},
+  {value: 7, label: {male: '11.46%', female: '88.54%', isUnknown: false}},
+  {value: 8, label: {male: '0%', female: '100%', isUnknown: false}},
+  {value: -1, label: {male: '', female: '', isUnknown: true}},
+];
