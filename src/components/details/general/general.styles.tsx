@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 32,
   },
   badgeContainer: {
     display: 'flex',
@@ -13,8 +14,8 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
   },
   textAndTypesContainer: {
     flexDirection: 'row',
@@ -37,11 +38,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     paddingHorizontal: 16,
     paddingVertical: 8,
-    width: '60%'
+    width: '60%',
+    marginTop: 16,
   },
   generalTextContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   generalText: {
     color: '#343434',

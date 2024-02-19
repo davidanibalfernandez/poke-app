@@ -4,11 +4,12 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-evenly',
     flexDirection: 'row',
+    marginBottom: 32,
   },
   column: {
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 8
+    gap: 8,
   },
   textHeader: {
     fontSize: 24,

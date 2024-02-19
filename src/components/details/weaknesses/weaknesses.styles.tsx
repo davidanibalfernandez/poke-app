@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 16,
+    marginBottom: 32,
   },
   iconsContainer: {
     gap: 13,

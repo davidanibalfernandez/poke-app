@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, Switch} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import {Badge} from '../../shared/badge';
 import PokeAPI from 'pokedex-promise-v2';
 import {styles} from './general.styles';
@@ -7,6 +7,8 @@ import { SvgXml } from 'react-native-svg';
 import {NoPokemon} from '../../../assets/index';
 import {convert} from 'inkunits';
 import { getGenderRatio } from '../../../utils/functions';
+import { CustomSwitch } from '../../shared/custom-switch';
+
 
 interface Props {
   pokemon: PokeAPI.Pokemon;
@@ -18,20 +20,34 @@ export default function General({
   const {id, name, sprites, types, weight, height, species } = pokemon;
   const gender = getGenderRatio(species.gender_rate);
   const [isEnabled, setIsEnabled] = React.useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
 
   return (
     <View style={styles.container}>
-      <View>
-        <Switch
-          trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <CustomSwitch isShiny={isEnabled} setIsShiny={setIsEnabled} />
+        {/* <Switch
+          value={!isEnabled}
           onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-        {sprites.at(0)?.sprites.front_default !== null ? (
+          containerStyle={{width: 172, height: 30}}
+          activeText={'normal'}
+          inActiveText={'shiny'}
+          backgroundActive={'#E3350D'}
+          backgroundInactive={'#F3D23B'}
+          circleActiveColor={'#30a566'}
+          circleInActiveColor={'#000000'}
+        /> */}
+        {isEnabled === true ? (
+          sprites.at(0)?.sprites.front_shiny !== null ? (
+            <Image
+              source={{
+                uri: sprites.at(0)?.sprites.front_shiny,
+              }}
+              style={styles.image}
+            />
+          ) : (
+            <SvgXml xml={NoPokemon()} width={88} height={88} />
+          )
+        ) : sprites.at(0)?.sprites.front_default !== null ? (
           <Image
             source={{
               uri: sprites.at(0)?.sprites.front_default,
@@ -46,7 +62,6 @@ export default function General({
       <View style={styles.textAndTypesContainer}>
         <View>
           <Text style={styles.name}>{name}</Text>
-          {/* <Text style={styles.name}>{JapaneseName}</Text> */}
         </View>
         <View style={styles.badgeContainer}>
           {types.map((t, i) => (

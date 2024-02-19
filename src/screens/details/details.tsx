@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Text, Pressable, SafeAreaView} from 'react-native';
+import {
+  Text,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  ImageBackground,
+} from 'react-native';
 import {getPokemonByNumber} from '../../sdk/pokemon';
 import PokeAPI from 'pokedex-promise-v2';
 import {Abilities} from '../../components/details/abilities';
@@ -38,18 +44,21 @@ export default function DetailsScreen({route, navigation}: Props) {
   if (pokemon !== undefined) {
     return (
       <SafeAreaView style={styles.screen}>
-        <General
-          pokemon={pokemon}
-        />
-        <Abilities abilities={pokemon?.abilities} />
-        <Stats stats={pokemon?.stats} />
-        <StrengthsAndWeaknesses types={pokemon?.types} />
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate('Pokedex')}>
-          <SvgXml xml={ArrowBackButton()} width={22} height={22} />
-          <Text style={styles.text}>Explore more pokemon</Text>
-        </Pressable>
+        <ImageBackground
+          source={require('../../assets/images/pokeBallLogo.png')}>
+          <ScrollView style={{padding: 16}}>
+            <General pokemon={pokemon} />
+            <Abilities abilities={pokemon?.abilities} />
+            <Stats stats={pokemon?.stats} />
+            <StrengthsAndWeaknesses types={pokemon?.types} />
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Pokedex')}>
+              <SvgXml xml={ArrowBackButton()} width={22} height={22} />
+              <Text style={styles.text}>Explore more pokemon</Text>
+            </Pressable>
+          </ScrollView>
+        </ImageBackground>
       </SafeAreaView>
     );
   } else {

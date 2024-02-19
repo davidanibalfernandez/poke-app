@@ -3,9 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    gap: 32,
     backgroundColor: '#fff',
-    padding: 16,
   },
   button: {
     flexDirection: 'row',
@@ -14,6 +12,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 4,
     backgroundColor: '#E3350D',
+    marginBottom: 30,
   },
   text: {
     fontSize: 16,
