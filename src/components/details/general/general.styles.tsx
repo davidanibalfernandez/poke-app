@@ -32,6 +32,11 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#343434',
   },
+  flavorText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#8B8B8B',
+  },
   generalDetailsContainer: {
     flexDirection: 'column',
     borderRadius: 4,
@@ -40,6 +45,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 8,
     width: '60%',
     marginTop: 16,
+    marginBottom: 40,
   },
   generalTextContainer: {
     flexDirection: 'row',

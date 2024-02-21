@@ -89,10 +89,13 @@ export const getPokemonByNumber = async (number: number) => {
       species: pokemon_v2_pokemonspecy {
         gender_rate
         has_gender_differences
-        pokemon_v2_evolutionchain {
+        evolution_chain: pokemon_v2_evolutionchain {
           pokemon_v2_pokemonspecies {
             name
           }
+        }
+        flavor_text_entries: pokemon_v2_pokemonspeciesflavortexts {
+          flavor_text
         }
       }
       abilities: pokemon_v2_pokemonabilities {
@@ -166,36 +169,36 @@ const getSortType = (type: string): string => {
   return value;
 };
 
-// # query samplePokeAPIquery2 {
-// #   pokemon_v2_pokemon(where: {name: {_eq: "eevee"}}) {
-// #     id
-// #     name
-// #     species: pokemon_v2_pokemonspecy {
-// #       gender_rate
-// #       has_gender_differences
-// #       pokemon_v2_evolutionchain {
-// #         pokemon_v2_pokemonspecies {
-// #           name
-// #           pokemon_v2_pokemonevolutions {
-// #             min_level
-// #             needs_overworld_rain
-// #             min_beauty
-// #             min_affection
-// #             min_happiness
-// #             gender_id
-// #             trade_species_id
-// #             time_of_day
-// #             relative_physical_stats
-// #             pokemon_v2_item {
-// #               name
-// #             }
-// #             location_id
-// #             known_move_id
-// #             held_item_id
-// #             known_move_type_id
-// #           }
-// #         }
-// #       }
-// #     }
-// #   }
-// # }
+//  query samplePokeAPIquery2 {
+//    pokemon_v2_pokemon(where: {name: {_eq: "eevee"}}) {
+//      id
+//      name
+//      species: pokemon_v2_pokemonspecy {
+//        gender_rate
+//        has_gender_differences
+//        pokemon_v2_evolutionchain {
+//          pokemon_v2_pokemonspecies {
+//            name
+//            pokemon_v2_pokemonevolutions {
+//              min_level
+//              needs_overworld_rain
+//              min_beauty
+//              min_affection
+//              min_happiness
+//              gender_id
+//              trade_species_id
+//              time_of_day
+//              relative_physical_stats
+//              pokemon_v2_item {
+//                name
+//              }
+//              location_id
+//              known_move_id
+//              held_item_id
+//              known_move_type_id
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }

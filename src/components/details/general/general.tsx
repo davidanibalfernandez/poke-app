@@ -25,17 +25,6 @@ export default function General({
     <View style={styles.container}>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <CustomSwitch isShiny={isEnabled} setIsShiny={setIsEnabled} />
-        {/* <Switch
-          value={!isEnabled}
-          onValueChange={toggleSwitch}
-          containerStyle={{width: 172, height: 30}}
-          activeText={'normal'}
-          inActiveText={'shiny'}
-          backgroundActive={'#E3350D'}
-          backgroundInactive={'#F3D23B'}
-          circleActiveColor={'#30a566'}
-          circleInActiveColor={'#000000'}
-        /> */}
         {isEnabled === true ? (
           sprites.at(0)?.sprites.front_shiny !== null ? (
             <Image
@@ -103,6 +92,11 @@ export default function General({
             </View>
           )}
         </View>
+      </View>
+      <View>
+        <Text style={styles.flavorText}>
+          {species.flavor_text_entries.at(0)?.flavor_text}
+        </Text>
       </View>
     </View>
   );
