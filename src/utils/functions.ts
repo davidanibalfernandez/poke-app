@@ -42,3 +42,13 @@ export const getGenderRatio = (value: number) => {
     isUnknown: gender?.label.isUnknown,
   };
 }
+
+export const getStatsRatio = (value: number | null): string | undefined => {
+  const ratios = [
+    {value: 1, label: 'ataque > defensa'},
+    {value: -1, label: 'ataque < defensa'},
+    {value: 0, label: 'ataque = defensa'}
+  ];
+
+  return ratios.find(r => r.value === value)?.label;
+}

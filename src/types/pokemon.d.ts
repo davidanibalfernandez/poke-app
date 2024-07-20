@@ -194,7 +194,8 @@ declare module 'pokedex-promise-v2' {
       /** Whether or not this link is for a baby Pokémon. This would only ever be true on the base link. */
       is_baby: boolean;
       /** The Pokémon species at this point in the evolution chain. */
-      species: NamedAPIResource<PokemonSpecies>;
+      name: string;
+      pokemon: Array<{sprites: Array<{sprites: PokemonSprites}>}>;
       /** All details regarding the specific details of the referenced Pokémon species evolution. */
       evolution_details: EvolutionDetail[] | null;
       /** A List of chain objects. */
@@ -207,7 +208,7 @@ declare module 'pokedex-promise-v2' {
       /** The type of event that triggers evolution into this Pokémon species. */
       trigger: NamedAPIResource<EvolutionTrigger>;
       /** The id of the gender of the evolving Pokémon species must be in order to evolve into this Pokémon species. */
-      gender: number | null;
+      gender: {name: string} | null;
       /** The item the evolving Pokémon species must be holding during the evolution trigger event to evolve into this Pokémon species. */
       held_item: NamedAPIResource<Item> | null;
       /** The move that must be known by the evolving Pokémon species during the evolution trigger event in order to evolve into this Pokémon species. */
@@ -1165,7 +1166,7 @@ declare module 'pokedex-promise-v2' {
       /** The Pokémon species that evolves into this Pokemon_species. */
       evolves_from_species: NamedAPIResource<PokemonSpecies>;
       /** The evolution chain this Pokémon species is a member of. */
-      evolution_chain: APIResource<EvolutionChain>;
+      evolution_chain: EvolutionChain;
       /** The habitat this Pokémon species can be encountered in. */
       habitat: NamedAPIResource<PokemonHabitat> | null;
       /** The generation this Pokémon species was introduced in. */

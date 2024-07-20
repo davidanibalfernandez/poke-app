@@ -89,13 +89,49 @@ export const getPokemonByNumber = async (number: number) => {
       species: pokemon_v2_pokemonspecy {
         gender_rate
         has_gender_differences
-        evolution_chain: pokemon_v2_evolutionchain {
-          pokemon_v2_pokemonspecies {
-            name
-          }
-        }
         flavor_text_entries: pokemon_v2_pokemonspeciesflavortexts {
           flavor_text
+        }
+        evolution_chain: pokemon_v2_evolutionchain {
+          chain: pokemon_v2_pokemonspecies {
+            name
+            pokemon: pokemon_v2_pokemons(where: {id: {_lte: 1025}}) {
+              sprites: pokemon_v2_pokemonsprites {
+                sprites
+              }
+            }
+            evolution_details: pokemon_v2_pokemonevolutions {
+              min_affection
+              min_beauty
+              min_happiness
+              min_level
+              time_of_day
+              turn_upside_down
+              relative_physical_stats
+              needs_overworld_rain
+              location: pokemon_v2_location {
+                name
+              }
+              item: pokemon_v2_item {
+                name
+              }
+              gender: pokemon_v2_gender {
+                name
+              }
+              trigger: pokemon_v2_evolutiontrigger {
+                name
+              }
+              held_item: pokemonV2ItemByHeldItemId {
+                name
+              }
+              known_move: pokemon_v2_move {
+                name
+              }
+              party_species: pokemonV2PokemonspecyByPartySpeciesId {
+                name
+              }
+            }
+          }
         }
       }
       abilities: pokemon_v2_pokemonabilities {
@@ -168,37 +204,3 @@ const getSortType = (type: string): string => {
 
   return value;
 };
-
-//  query samplePokeAPIquery2 {
-//    pokemon_v2_pokemon(where: {name: {_eq: "eevee"}}) {
-//      id
-//      name
-//      species: pokemon_v2_pokemonspecy {
-//        gender_rate
-//        has_gender_differences
-//        pokemon_v2_evolutionchain {
-//          pokemon_v2_pokemonspecies {
-//            name
-//            pokemon_v2_pokemonevolutions {
-//              min_level
-//              needs_overworld_rain
-//              min_beauty
-//              min_affection
-//              min_happiness
-//              gender_id
-//              trade_species_id
-//              time_of_day
-//              relative_physical_stats
-//              pokemon_v2_item {
-//                name
-//              }
-//              location_id
-//              known_move_id
-//              held_item_id
-//              known_move_type_id
-//            }
-//          }
-//        }
-//      }
-//    }
-//  }

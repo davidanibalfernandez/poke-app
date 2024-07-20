@@ -19,6 +19,26 @@ export default function EvolutionLine({
 }: Props): React.JSX.Element {
   const image = JSON.parse(sprites ?? '') as PokeAPI.PokemonSprites;
 
+  /**
+   * Evolución por nivel
+   * Evolución por piedras elementales
+   * Evolución por intercambio
+   * Evolución por intercambio con objeto equipado
+   * Evolución por felicidad
+   * Evolución por belleza
+   * Evolución por afecto
+   * Evolución según sus estadísticas de combate
+   * Evolución al subir de nivel al conocer un determinado movimiento
+   * Evolución en un lugar determinado
+   * Evolución por subir un nivel con cierto objeto equipado
+   * Evolución al ser de un determinado género
+   * Evolución con un determinado Pokémon en el equipo
+   * Evolución con genes específicos
+   * Evolución por intercambio de determinado Pokémon
+   * Evolución por nivel con la consola en una posición
+   * Evolución por un clima determinado
+   */
+
   return (
     <View style={styles.container}>
       <Text style={styles.number}>#{number}</Text>
